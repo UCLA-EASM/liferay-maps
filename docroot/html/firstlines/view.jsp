@@ -17,9 +17,23 @@ This is the <b>First Lines</b> portlet in View mode.
 <h1>My Library</h1>
 
 <% 
-List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, 10);
+final int fileCount = DLFileEntryLocalServiceUtil.getDLFileEntriesCount();
+List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fileCount);
 %>
-<table>
+
+<form>
+<%
+	for ( int i = 0; i < documents.size(); i++ ) {
+	%> 
+	<input type="radio" value= "<%= documents.get(i).getFileEntryId() %>"> <%= documents.get(i).getTitle() %>
+	<br>
+	<%		
+	}
+%>
+<input type="submit" value="Get First Lines">
+</form> 
+
+<%-- <table>
 <%
     for ( int i = 0; i < documents.size(); i++ ) {
         %>
@@ -30,7 +44,8 @@ List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, 10
     }
 %>
 </table>
-<aui:button-row>
+ --%>
+ <aui:button-row>
 	<portlet:renderURL var="firstLinesURL">
 	    <portlet:param name="mvcPath" value="/html/firstlines/results.jsp"></portlet:param>
 	</portlet:renderURL>
