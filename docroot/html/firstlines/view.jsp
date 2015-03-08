@@ -18,41 +18,22 @@ This is the <b>First Lines</b> portlet in View mode.
 
 <% 
 final int fileCount = DLFileEntryLocalServiceUtil.getDLFileEntriesCount();
+// add to documents only if extension is correct
 List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fileCount);
 %>
 
-<form>
-<%
-	for ( int i = 0; i < documents.size(); i++ ) {
-	%> 
-	<input type="radio" value= "<%= documents.get(i).getFileEntryId() %>"> <%= documents.get(i).getTitle() %>
-	<br>
-	<%		
-	}
-%>
-<input type="submit" value="Get First Lines">
-</form> 
-
-<%-- <table>
-<%
-    for ( int i = 0; i < documents.size(); i++ ) {
-        %>
-        <TR>
-        <TD><%= documents.get(i).getTitle() %></TD>
-        </TR>
-        <%
-    }
-%>
-</table>
- --%>
- <aui:button-row>
-	<portlet:renderURL var="firstLinesURL">
+<portlet:renderURL var="firstLinesURL">
 	    <portlet:param name="mvcPath" value="/html/firstlines/results.jsp"></portlet:param>
-	</portlet:renderURL>
-	
-	<aui:button onClick="<%= firstLinesURL.toString() %>" value="Get First Lines"></aui:button>
-</aui:button-row>
+</portlet:renderURL>
 
+<aui:form action="<%= firstLinesURL %>" method="post">
+	<% for ( int i = 0; i < documents.size(); i++ ) {
+		%>
+	<aui:input type="checkbox" name="<%= documents.get(i).getTitle() %>"> </aui:input>
+	<% 
+	}
+	%>
+</aui:form>
 
 <%-- 
 <liferay-ui:search-container delta="10" emptyResultsMessage="No documents found">
