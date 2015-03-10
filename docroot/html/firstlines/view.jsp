@@ -5,12 +5,10 @@
 <%@ page import="javax.portlet.PortletPreferences" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import = "com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil" %>
-<%@ page import = "com.liferay.portlet.documentlibrary.model.DLFileEntry" %>
-<%-- 
+
 <%@ page import = "com.liferay.portlet.documentlibrary.model.DLContent" %> 
 <%@ page import = "com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil" %>
---%>
+
  <portlet:defineObjects />
 
 This is the <b>First Lines</b> portlet in View mode.
@@ -18,51 +16,21 @@ This is the <b>First Lines</b> portlet in View mode.
 <h1>My Library</h1>
 
 <% 
-final int fileCount = DLFileEntryLocalServiceUtil.getDLFileEntriesCount();
-// add to documents only if extension is correct
-List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fileCount);
-List<DLFileEntry> textDocuments = new ArrayList<DLFileEntry>();
+final int fileCount = DLContentLocalServiceUtil.getDLContentsCount();
+List<DLContent> documents = DLContentLocalServiceUtil.getDLContents(0, fileCount);
 System.out.println(documents.get(0));
-for(int i=0;i<documents.size();i++) {
-	System.out.println(documents.get(i).getExtension());
-	if(documents.get(i).getExtension() == "txt") {
-		textDocuments.add(documents.get(i));
-	}
-	//System.out.println(documents.get(i).getSize());
-	//System.out.println(documents.get(i).getContentStream());
-}
 %>
 
 <portlet:renderURL var="firstLinesURL">
 	    <portlet:param name="mvcPath" value="/html/firstlines/results.jsp"></portlet:param>
 </portlet:renderURL>
-
+ 
 <aui:form action="<%= firstLinesURL %>" method="post">
 	<% for ( int i = 0; i < documents.size(); i++ ) {
 		%>
-	<aui:input type="checkbox" id="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="<%= documents.get(i).getTitle() %>"> </aui:input>
+	<aui:input type="checkbox" id="<%= Long.toString(documents.get(i).getPrimaryKey()) %>" name="hello"> </aui:input>
 	<% 
 	}
 	%>
-	<aui:input type="submit"  name=""  value="Get First Lines"></aui:input>
+	<aui:input type="submit" onClick="<%= firstLinesURL.toString() %>" name=""  value="Get First Lines"></aui:input>
 </aui:form>
-
-<%-- 
-<liferay-ui:search-container delta="10" emptyResultsMessage="No documents found">
-	<liferay-ui:search-container-results
-		results="<%=DLFileEntryLocalServiceUtil.getDLFileEntries(searchContainer.getStart(), searchContainer.getEnd())%>"
-		total="<%=DLFileEntryLocalServiceUtil.getDLFileEntriesCount()%>"
-		/>
-		
-		<liferay-ui:search-container-row
-			className="edu.ucla.macroscope.firstlines.FirstLinesPortlet"
-			keyProperty="documentId"
-			modelVar="document"
-		>
-		</liferay-ui:search-container-row>
-	
-	<liferay-ui:search-iterator />
-		
-</liferay-ui:search-container>
- --%>
- 
