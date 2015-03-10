@@ -4,8 +4,9 @@
 
 <%@ page import="javax.portlet.PortletPreferences" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import = "com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil" %>
-<%@ page import = "com.liferay.portlet.documentlibrary.model.DLFileEntry" %> 
+<%@ page import = "com.liferay.portlet.documentlibrary.model.DLFileEntry" %>
 <%-- 
 <%@ page import = "com.liferay.portlet.documentlibrary.model.DLContent" %> 
 <%@ page import = "com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil" %>
@@ -20,6 +21,16 @@ This is the <b>First Lines</b> portlet in View mode.
 final int fileCount = DLFileEntryLocalServiceUtil.getDLFileEntriesCount();
 // add to documents only if extension is correct
 List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fileCount);
+List<DLFileEntry> textDocuments = new ArrayList<DLFileEntry>();
+System.out.println(documents.get(0));
+for(int i=0;i<documents.size();i++) {
+	System.out.println(documents.get(i).getExtension());
+	if(documents.get(i).getExtension() == "txt") {
+		textDocuments.add(documents.get(i));
+	}
+	//System.out.println(documents.get(i).getSize());
+	//System.out.println(documents.get(i).getContentStream());
+}
 %>
 
 <portlet:renderURL var="firstLinesURL">
@@ -29,10 +40,11 @@ List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fi
 <aui:form action="<%= firstLinesURL %>" method="post">
 	<% for ( int i = 0; i < documents.size(); i++ ) {
 		%>
-	<aui:input type="checkbox" name="<%= documents.get(i).getTitle() %>"> </aui:input>
+	<aui:input type="checkbox" id="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="<%= documents.get(i).getTitle() %>"> </aui:input>
 	<% 
 	}
 	%>
+	<aui:input type="submit"  name=""  value="Get First Lines"></aui:input>
 </aui:form>
 
 <%-- 
