@@ -15,7 +15,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portlet.documentlibrary.model.DLContent;
+import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 /**
@@ -26,24 +28,32 @@ public class FirstLinesPortlet extends MVCPortlet {
 	public void loadFirstLines(ActionRequest request, ActionResponse response) 
 			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException {
 		
-		String requestParamDocumentIds = request.getParameter("documentIDs");
+		String[] requestParamDocumentIds = request.getParameterValues("documentIDs");
+		
+//		ArrayList<String> requestParamDocumentIds = new ArrayList<String>();
+		
+		for (int i = 0; i < request.getParameterValues("documentIDs").length; i++) {
+//			if 
+		}
+		
 		
 		if (requestParamDocumentIds == null) {
 			throw new InvalidParameterException("Document IDs was null");
 		}
 		
-		String[] splitDocumentIds = requestParamDocumentIds.split(",");
-		
 		List<FirstLinesResult> results = new ArrayList<FirstLinesResult>();
 		
-		for (String textualDocumentId : splitDocumentIds) {
+		for (String textualDocumentId : requestParamDocumentIds) {
 			long numericalDocumentID = Long.parseLong(textualDocumentId);
-			DLContent document = (DLContentLocalServiceUtil.getDLContent(numericalDocumentID));
+			DLFileEntry document = DLFileEntryLocalServiceUtil.getDLFileEntry(numericalDocumentID);
+//			DLContent document = (DLContentLocalServiceUtil.getDLContent(numericalDocumentID));
 			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[4096];
 			
-			InputStream stream = document.getData().getBinaryStream();
+//			InputStream stream = document.getData().getBinaryStream();
+			InputStream stream = document.getContentStream();
+			System.out.println(stream);
 			
 			// 4096 because it's unlikely the first line of a text file will have a first line
 			// greater than 4K long
