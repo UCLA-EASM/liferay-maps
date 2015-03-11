@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -29,37 +30,34 @@ public class FirstLinesPortlet extends MVCPortlet {
 	public void loadFirstLines(ActionRequest request, ActionResponse response) 
 			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException {
 		
-		String docListSize = request.getParameter("doumentListSize");
-		int count = Integer.parseInt(docListSize);
-		System.out.println(count);
+		ArrayList<Long> selectedDocumentIds = new ArrayList<Long>();
 		
-		String[] requestParamDocumentIds = request.getParameterValues("documentIDs");
-		System.out.println(requestParamDocumentIds.length);
-		
-		ArrayList<String> selectedDocumentIds = new ArrayList<String>();
-		
-		for (int i = 0; i < count; i++) {
-			if(ParamUtil.getBoolean(request,requestParamDocumentIds[i])){
-				selectedDocumentIds.add(requestParamDocumentIds[i]);
+		for (Enumeration<String> parameterNames = request.getParameterNames(); parameterNames.hasMoreElements();) {
+			String parameterName = parameterNames.nextElement();
+			
+			if (!parameterName.startsWith("document-")) {
+				continue;
+			}
+			
+			if(ParamUtil.getBoolean(request, parameterName)) {
+				// NOTE: Potential bug if document IDs get more complex
+				Long documentId = Long.parseLong(parameterName.replaceAll("document-", ""));
+				selectedDocumentIds.add(documentId);
 			}
 		}
-		System.out.print(selectedDocumentIds);
 		
-		if (requestParamDocumentIds == null) {
-			throw new InvalidParameterException("Document IDs was null");
+		if (selectedDocumentIds.isEmpty()) {
+			throw new InvalidParameterException("No document IDs selected");
 		}
 		
 		List<FirstLinesResult> results = new ArrayList<FirstLinesResult>();
 		
-		for (String textualDocumentId : requestParamDocumentIds) {
-			long numericalDocumentID = Long.parseLong(textualDocumentId);
-			DLFileEntry document = DLFileEntryLocalServiceUtil.getDLFileEntry(numericalDocumentID);
-//			DLContent document = (DLContentLocalServiceUtil.getDLContent(numericalDocumentID));
+		for (Long documentId : selectedDocumentIds) {;
+			DLFileEntry document = DLFileEntryLocalServiceUtil.getDLFileEntry(documentId);
 			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			byte[] buffer = new byte[4096];
 			
-//			InputStream stream = document.getData().getBinaryStream();
 			InputStream stream = document.getContentStream();
 			System.out.println(stream);
 			
@@ -70,14 +68,13 @@ public class FirstLinesPortlet extends MVCPortlet {
 			String firstLine;
 			
 			if (byteCount != -1) {
-				byteStream.write(buffer, byteCount, 0);
+				byteStream.write(buffer, 0, byteCount);
 				stream.close();
 				byte[] bytes = byteStream.toByteArray();
 				
 				// Assuming all files will be UTF-8. Not safe for production,
 				// and should be tested before a demo
-				String possibleFirstLines = new String(bytes, "UTF-8");
-				
+				String possibleFirstLines = new String(bytes, "UTF-8");				
 				firstLine = possibleFirstLines.split("[\\r\\n]+")[0];
 			} else {
 				firstLine = "<Empty file>";
