@@ -36,15 +36,18 @@ public class FirstLinesPortlet extends MVCPortlet {
 		String[] requestParamDocumentIds = request.getParameterValues("documentIDs");
 		System.out.println(requestParamDocumentIds.length);
 		
-		ArrayList<String> selectedDocumentIds = new ArrayList<String>();
-		
-		for (int i = 0; i < count; i++) {
-			if(ParamUtil.getBoolean(request,requestParamDocumentIds[i])){
-				selectedDocumentIds.add(requestParamDocumentIds[i]);
-			}
+		for(String l:requestParamDocumentIds) {
+			System.out.println(l);;
 		}
-		System.out.print(selectedDocumentIds);
-		
+//		ArrayList<String> selectedDocumentIds = new ArrayList<String>();
+//		
+//		for (int i = 0; i < count; i++) {
+//			if(ParamUtil.getBoolean(request,requestParamDocumentIds[i])){
+//				selectedDocumentIds.add(requestParamDocumentIds[i]);
+//			}
+//		}
+//		System.out.print(selectedDocumentIds);
+//		
 		if (requestParamDocumentIds == null) {
 			throw new InvalidParameterException("Document IDs was null");
 		}

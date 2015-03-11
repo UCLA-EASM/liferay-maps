@@ -42,8 +42,10 @@ for(int i=0;i<documents.size();i++) {
 <aui:form action="<%= loadFirstLinesURL %>" method="post">
 	<% for ( int i = 0; i < documents.size(); i++ ) {
 		%>
-	<aui:input type="checkbox" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="documentIDs" label="<%=documents.get(i).getTitle() %>"></aui:input>
+	<aui:input type="checkbox" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name=""<%=documents.get(i).getTitle() %>" label="<%=documents.get(i).getTitle() %>"></aui:input>
+	<aui:input type="hidden" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="documentIDs" label="<%=documents.get(i).getTitle() %>"></aui:input>
 	<% 
+	System.out.println(documents.get(i).getExtension());
 	}
 	%>
 	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
