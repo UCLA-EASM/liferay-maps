@@ -19,18 +19,18 @@ This is the <b>First Lines</b> portlet in View mode.
 <% 
 final int fileCount = DLFileEntryLocalServiceUtil.getDLFileEntriesCount();
 List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fileCount);
-System.out.println(fileCount);
-System.out.println(documents.get(0));
+//System.out.println(fileCount);
+//System.out.println(documents.get(0));
 List<DLFileEntry> textDocuments = new ArrayList<DLFileEntry>();
 
 for(int i=0;i<documents.size();i++) {
-	System.out.println(documents.get(i).getExtension());
+	//System.out.println(documents.get(i).getExtension());
 	if(documents.get(i).getExtension() == "txt") {
 		textDocuments.add(documents.get(i));
 		System.out.println("Found a text doc");
 	}
 }
-System.out.println(textDocuments);
+//System.out.println(textDocuments);
 %>
 
 <portlet:renderURL var="firstLinesURL">
@@ -42,10 +42,11 @@ System.out.println(textDocuments);
 <aui:form action="<%= loadFirstLinesURL %>" method="post">
 	<% for ( int i = 0; i < documents.size(); i++ ) {
 		%>
-	<aui:input type="checkbox" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="documentIDs" ><%= documents.get(i).getTitle() %></aui:input>
+	<aui:input type="checkbox" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="documentIDs" label="<%=documents.get(i).getTitle() %>"></aui:input>
 	<% 
 	}
 	%>
+	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
 	<%-- <aui:input type="submit" onClick="<%= firstLinesURL.toString() %>" name=""  value="Get First Lines"></aui:input> --%>
 	<aui:input type="submit" onClick="<%= firstLinesURL.toString() %>" name=""  value="Get First Lines"></aui:input>
 </aui:form>

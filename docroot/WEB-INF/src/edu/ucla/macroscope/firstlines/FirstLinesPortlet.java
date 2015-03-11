@@ -14,9 +14,10 @@ import javax.portlet.ActionResponse;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portlet.documentlibrary.model.DLContent;
+import com.liferay.portal.kernel.util.ParamUtil;
+//import com.liferay.portlet.documentlibrary.model.DLContent;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil;
+//import com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -28,14 +29,21 @@ public class FirstLinesPortlet extends MVCPortlet {
 	public void loadFirstLines(ActionRequest request, ActionResponse response) 
 			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException {
 		
+		String docListSize = request.getParameter("doumentListSize");
+		int count = Integer.parseInt(docListSize);
+		System.out.println(count);
+		
 		String[] requestParamDocumentIds = request.getParameterValues("documentIDs");
+		System.out.println(requestParamDocumentIds.length);
 		
-//		ArrayList<String> requestParamDocumentIds = new ArrayList<String>();
+		ArrayList<String> selectedDocumentIds = new ArrayList<String>();
 		
-		for (int i = 0; i < request.getParameterValues("documentIDs").length; i++) {
-//			if 
+		for (int i = 0; i < count; i++) {
+			if(ParamUtil.getBoolean(request,requestParamDocumentIds[i])){
+				selectedDocumentIds.add(requestParamDocumentIds[i]);
+			}
 		}
-		
+		System.out.print(selectedDocumentIds);
 		
 		if (requestParamDocumentIds == null) {
 			throw new InvalidParameterException("Document IDs was null");
