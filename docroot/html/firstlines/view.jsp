@@ -39,11 +39,12 @@ for(int i=0;i<documents.size();i++) {
 
 <portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL"></portlet:actionURL>
  
-<aui:form action="<%= loadFirstLinesURL %>" method="post">
+<aui:form action="<%= firstLinesURL %>" method="post">
 	<% for ( int i = 0; i < documents.size(); i++ ) {
 		%>
-	<aui:input type="checkbox" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name=""<%=documents.get(i).getTitle() %>" label="<%=documents.get(i).getTitle() %>"></aui:input>
-	<aui:input type="hidden" value="<%= Long.toString(documents.get(i).getFileEntryId()) %>" name="documentIDs" label="<%=documents.get(i).getTitle() %>"></aui:input>
+	<aui:input type="checkbox"  
+				name="<%= \"document-\" + Long.toString(documents.get(i).getFileEntryId()) %>" label="<%=documents.get(i).getTitle() %>">
+	</aui:input>
 	<% 
 	System.out.println(documents.get(i).getExtension());
 	}
