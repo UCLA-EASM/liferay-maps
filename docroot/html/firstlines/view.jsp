@@ -25,7 +25,7 @@ List<DLFileEntry> textDocuments = new ArrayList<DLFileEntry>();
 
 for(int i=0;i<documents.size();i++) {
 	//System.out.println(documents.get(i).getExtension());
-	if(documents.get(i).getExtension() == "txt") {
+	if(documents.get(i).getExtension().equals("txt")) {
 		textDocuments.add(documents.get(i));
 		System.out.println("Found a text doc");
 	}
@@ -39,14 +39,14 @@ for(int i=0;i<documents.size();i++) {
 
 <portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL"></portlet:actionURL>
  
-<aui:form action="<%= firstLinesURL %>" method="post">
-	<% for ( int i = 0; i < documents.size(); i++ ) {
+<aui:form action="<%= loadFirstLinesURL %>" method="post">
+	<% for ( int i = 0; i < textDocuments.size(); i++ ) {
 		%>
 	<aui:input type="checkbox"  
-				name="<%= \"document-\" + Long.toString(documents.get(i).getFileEntryId()) %>" label="<%=documents.get(i).getTitle() %>">
+				name="<%= \"document-\" + Long.toString(textDocuments.get(i).getFileEntryId()) %>" label="<%=textDocuments.get(i).getTitle() %>">
 	</aui:input>
 	<% 
-	System.out.println(documents.get(i).getExtension());
+	//System.out.println(documents.get(i).getExtension());
 	}
 	%>
 	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
