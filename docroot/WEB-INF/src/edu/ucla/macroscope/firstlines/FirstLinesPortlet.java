@@ -11,14 +11,13 @@ import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
-//import com.liferay.portlet.documentlibrary.model.DLContent;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-//import com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -28,7 +27,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 public class FirstLinesPortlet extends MVCPortlet {
  
 	public void loadFirstLines(ActionRequest request, ActionResponse response) 
-			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException {
+			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException, PortletException {
 		
 		ArrayList<Long> selectedDocumentIds = new ArrayList<Long>();
 		
@@ -84,6 +83,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		}
 		
 		SessionMessages.add(request, "results", results);
+		response.setRenderParameter("jspPage", "/html/firstlines/results.jsp");
 	}
 
 }

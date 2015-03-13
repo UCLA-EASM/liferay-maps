@@ -33,13 +33,10 @@ for(int i=0;i<documents.size();i++) {
 //System.out.println(textDocuments);
 %>
 
-<portlet:renderURL var="firstLinesURL">
-	    <portlet:param name="mvcPath" value="/html/firstlines/results.jsp"></portlet:param>
-</portlet:renderURL>
-
-<portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL"></portlet:actionURL>
+<portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL">
+</portlet:actionURL>
  
-<aui:form action="<%= firstLinesURL %>" method="post">
+<aui:form action="<%= loadFirstLinesURL %>" method="post">
 	<% for ( int i = 0; i < documents.size(); i++ ) {
 		%>
 	<aui:input type="checkbox"  
@@ -49,7 +46,6 @@ for(int i=0;i<documents.size();i++) {
 	}
 	%>
 	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
-	<%-- <aui:input type="submit" onClick="<%= firstLinesURL.toString() %>" name=""  value="Get First Lines"></aui:input> --%>
-	<aui:input type="submit" onClick="<%= firstLinesURL.toString() %>" name=""  value="Get First Lines"></aui:input>
+	<aui:input type="submit" name="" value="Get First Lines" />
 </aui:form>
 
