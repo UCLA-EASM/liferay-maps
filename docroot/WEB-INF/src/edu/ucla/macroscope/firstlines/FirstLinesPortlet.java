@@ -58,7 +58,6 @@ public class FirstLinesPortlet extends MVCPortlet {
 			byte[] buffer = new byte[4096];
 			
 			InputStream stream = document.getContentStream();
-			System.out.println(stream);
 			
 			// 4096 because it's unlikely the first line of a text file will have a first line
 			// greater than 4K long
