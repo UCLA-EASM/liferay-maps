@@ -7,10 +7,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import = "com.liferay.portlet.documentlibrary.model.DLFileEntry" %>
 <%@ page import = "com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil" %>
-<%-- <%@ page import = "com.liferay.portlet.documentlibrary.model.DLContent" %> 
-<%@ page import = "com.liferay.portlet.documentlibrary.service.DLContentLocalServiceUtil" %>
- --%>
- <portlet:defineObjects />
+<portlet:defineObjects />
 
 This is the <b>First Lines</b> portlet in View mode.
 
@@ -19,28 +16,24 @@ This is the <b>First Lines</b> portlet in View mode.
 <% 
 final int fileCount = DLFileEntryLocalServiceUtil.getDLFileEntriesCount();
 List<DLFileEntry> documents = DLFileEntryLocalServiceUtil.getDLFileEntries(0, fileCount);
-//System.out.println(fileCount);
-//System.out.println(documents.get(0));
 List<DLFileEntry> textDocuments = new ArrayList<DLFileEntry>();
 
 for(int i=0;i<documents.size();i++) {
-	//System.out.println(documents.get(i).getExtension());
-	if(documents.get(i).getExtension() == "txt") {
+	if(documents.get(i).getExtension().equals("txt")) {
 		textDocuments.add(documents.get(i));
 		System.out.println("Found a text doc");
 	}
 }
-//System.out.println(textDocuments);
 %>
 
 <portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL">
 </portlet:actionURL>
  
 <aui:form action="<%= loadFirstLinesURL %>" method="post">
-	<% for ( int i = 0; i < documents.size(); i++ ) {
+	<% for ( int i = 0; i < textDocuments.size(); i++ ) {
 		%>
 	<aui:input type="checkbox"  
-				name="<%= \"document-\" + Long.toString(documents.get(i).getFileEntryId()) %>" label="<%=documents.get(i).getTitle() %>">
+				name="<%= \"document-\" + Long.toString(textDocuments.get(i).getFileEntryId()) %>" label="<%=textDocuments.get(i).getTitle() %>">
 	</aui:input>
 	<% 
 	}

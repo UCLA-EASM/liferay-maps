@@ -1,6 +1,5 @@
 package edu.ucla.macroscope.firstlines;
 
-import com.liferay.portlet.documentlibrary.model.DLContent;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 
 public class FirstLinesResult {

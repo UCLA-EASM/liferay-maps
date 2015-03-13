@@ -31,6 +31,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		
 		ArrayList<Long> selectedDocumentIds = new ArrayList<Long>();
 		
+
 		for (Enumeration<String> parameterNames = request.getParameterNames(); parameterNames.hasMoreElements();) {
 			String parameterName = parameterNames.nextElement();
 			
