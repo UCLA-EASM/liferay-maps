@@ -7,6 +7,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import = "com.liferay.portlet.documentlibrary.model.DLFileEntry" %>
 <%@ page import = "com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil" %>
+
+<%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %>
 <portlet:defineObjects />
 
 This is the <b>First Lines</b> portlet in View mode.
@@ -25,12 +27,13 @@ for(int i=0;i<documents.size();i++) {
 	}
 }
 %>
-
-<portlet:renderURL var="firstLinesURL">
+<%-- <portlet:renderURL var="firstLinesResultsURL">
 	    <portlet:param name="mvcPath" value="/html/firstlines/results.jsp"></portlet:param>
-</portlet:renderURL>
+</portlet:renderURL> --%>
 
-<portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL"></portlet:actionURL>
+<portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL">
+<portlet:param name="mvcPath" value="/results.jsp"></portlet:param>
+</portlet:actionURL>
  
 <aui:form action="<%= loadFirstLinesURL %>" method="post">
 	<% for ( int i = 0; i < textDocuments.size(); i++ ) {
@@ -42,6 +45,20 @@ for(int i=0;i<documents.size();i++) {
 	}
 	%>
 	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
-	<aui:input type="submit" onClick="<%= firstLinesURL.toString() %>" name=""  value="Get First Lines"></aui:input>
-</aui:form>
+	<aui:input type="submit" name=""  value="Get First Lines"></aui:input>
+	
+	<%-- <portlet:renderURL var="resultsURL">
+        <portlet:param name="mvcPath" value="/view.jsp" />
+	</portlet:renderURL>
+
+<p><a href="<%= resultsURL %>">&larr; Back</a></p>
+<liferay-ui:success key="results" message="results" /> --%>
+
+	<%-- <aui:button-row>
+
+            <aui:button type="submit" onClick="<%= loadFirstLinesURL.toString() %>"></aui:button>
+            <aui:button type="cancel"></aui:button>
+
+        </aui:button-row> --%>
+ </aui:form>
 
