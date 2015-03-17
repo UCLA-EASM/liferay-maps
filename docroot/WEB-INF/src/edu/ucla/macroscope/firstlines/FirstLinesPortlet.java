@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -26,7 +27,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 public class FirstLinesPortlet extends MVCPortlet {
  
 	public void loadFirstLines(ActionRequest request, ActionResponse response) 
-			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException {
+			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException, PortletException {
 		
 		ArrayList<Long> selectedDocumentIds = new ArrayList<Long>();
 		
@@ -58,7 +59,6 @@ public class FirstLinesPortlet extends MVCPortlet {
 			byte[] buffer = new byte[4096];
 			
 			InputStream stream = document.getContentStream();
-			System.out.println(stream);
 			
 			// 4096 because it's unlikely the first line of a text file will have a first line
 			// greater than 4K long
@@ -83,6 +83,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		}
 		
 		SessionMessages.add(request, "results", results);
+		response.setRenderParameter("jspPage", "/html/firstlines/results.jsp");
 	}
 
 }

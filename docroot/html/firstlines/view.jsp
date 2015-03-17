@@ -27,12 +27,9 @@ for(int i=0;i<documents.size();i++) {
 	}
 }
 %>
-<%-- <portlet:renderURL var="firstLinesResultsURL">
-	    <portlet:param name="mvcPath" value="/html/firstlines/results.jsp"></portlet:param>
-</portlet:renderURL> --%>
+
 
 <portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL">
-<portlet:param name="mvcPath" value="/results.jsp"></portlet:param>
 </portlet:actionURL>
  
 <aui:form action="<%= loadFirstLinesURL %>" method="post">
@@ -45,20 +42,7 @@ for(int i=0;i<documents.size();i++) {
 	}
 	%>
 	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
-	<aui:input type="submit" name=""  value="Get First Lines"></aui:input>
-	
-	<%-- <portlet:renderURL var="resultsURL">
-        <portlet:param name="mvcPath" value="/view.jsp" />
-	</portlet:renderURL>
+	<aui:input type="submit" name="" value="Get First Lines" />
+</aui:form>
 
-<p><a href="<%= resultsURL %>">&larr; Back</a></p>
-<liferay-ui:success key="results" message="results" /> --%>
-
-	<%-- <aui:button-row>
-
-            <aui:button type="submit" onClick="<%= loadFirstLinesURL.toString() %>"></aui:button>
-            <aui:button type="cancel"></aui:button>
-
-        </aui:button-row> --%>
- </aui:form>
 
