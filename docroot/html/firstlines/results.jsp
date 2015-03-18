@@ -13,6 +13,7 @@
 int resultSize = Integer.parseInt(renderRequest.getParameter("resultSize"));
 for(int i=0;i<resultSize;i++)  {
 %> 
+	<h4> <%=renderRequest.getParameter("title"+i) %></h4>
 	<p> <%=renderRequest.getParameter("result"+i) %> </p>
 	</br>
 <% 

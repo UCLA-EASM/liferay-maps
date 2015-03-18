@@ -88,6 +88,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		//System.out.println(results.get(0).getLine());
 		for(int i=0; i< results.size();i++) {
 			response.setRenderParameter("result"+i, results.get(i).getLine());
+			response.setRenderParameter("title"+i, results.get(i).getContent().getTitle());
 		}
 		response.setRenderParameter("resultSize", Integer.toString(results.size()));
 		response.setRenderParameter("jspPage", "/html/firstlines/results.jsp");
