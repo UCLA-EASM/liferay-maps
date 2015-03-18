@@ -15,8 +15,9 @@ import javax.portlet.PortletException;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.servlet.SessionMessages;
+//import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+//import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -82,7 +83,13 @@ public class FirstLinesPortlet extends MVCPortlet {
 			results.add(new FirstLinesResult(document, firstLine));
 		}
 		
-		SessionMessages.add(request, "results", results);
+		//SessionMessages.add(request, "results", results);
+		//System.out.println(SessionMessages.get(request, "results"));
+		//System.out.println(results.get(0).getLine());
+		for(int i=0; i< results.size();i++) {
+			response.setRenderParameter("result"+i, results.get(i).getLine());
+		}
+		response.setRenderParameter("resultSize", Integer.toString(results.size()));
 		response.setRenderParameter("jspPage", "/html/firstlines/results.jsp");
 	}
 

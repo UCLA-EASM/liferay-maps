@@ -23,7 +23,7 @@ List<DLFileEntry> textDocuments = new ArrayList<DLFileEntry>();
 for(int i=0;i<documents.size();i++) {
 	if(documents.get(i).getExtension().equals("txt")) {
 		textDocuments.add(documents.get(i));
-		System.out.println("Found a text doc");
+		//System.out.println("Found a text doc");
 	}
 }
 %>
