@@ -1,6 +1,7 @@
 <%@page import="com.liferay.portal.kernel.servlet.SessionMessages"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
+
 <%-- <%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %> --%>
 <portlet:defineObjects />
 
@@ -15,7 +16,8 @@ for(int i=0;i<resultSize;i++)  {
 %> 
 	<h4> <%=renderRequest.getParameter("title"+i) %></h4>
 	<p> <%=renderRequest.getParameter("result"+i) %> </p>
-	</br>
+	<p> File Count:<%=renderRequest.getParameter("filecounts"+i) %> </p>
+	<br/>
 <% 
 } 
 %>

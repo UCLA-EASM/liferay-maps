@@ -11,7 +11,7 @@
 <%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %>
 <portlet:defineObjects />
 
-This is the <b>First Lines</b> portlet in View mode.
+This is the <b>First Lines</b> portlet in View mode.-Test2
 
 <h1>My Library</h1>
 
@@ -44,5 +44,13 @@ for(int i=0;i<documents.size();i++) {
 	<aui:input type="hidden" name="doumentListSize" value="<%= documents.size() %>"></aui:input>
 	<aui:input type="submit" name="" value="Get First Lines" />
 </aui:form>
+
+<aui:button-row cssClass="liferay-buttons">
+	<portlet:renderURL var="cloudURL">
+			<portlet:param name="mvcPath" value="/html/firstlines/wordcloudg.jsp"></portlet:param>
+	</portlet:renderURL>
+	
+	<aui:button name="Cloud Generate" onClick="<%= cloudURL.toString() %>" value="Cloud Generate"></aui:button>
+</aui:button-row>
 
 

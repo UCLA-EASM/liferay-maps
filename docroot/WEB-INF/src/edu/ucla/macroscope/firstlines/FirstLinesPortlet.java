@@ -1,8 +1,11 @@
 package edu.ucla.macroscope.firstlines;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +15,10 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
+
+
+
+
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -31,7 +38,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 			throws InvalidParameterException, PortalException, SystemException, SQLException, IOException, PortletException {
 		
 		ArrayList<Long> selectedDocumentIds = new ArrayList<Long>();
-		
+		String count = "0";
 
 		for (Enumeration<String> parameterNames = request.getParameterNames(); parameterNames.hasMoreElements();) {
 			String parameterName = parameterNames.nextElement();
@@ -55,6 +62,9 @@ public class FirstLinesPortlet extends MVCPortlet {
 		
 		for (Long documentId : selectedDocumentIds) {;
 			DLFileEntry document = DLFileEntryLocalServiceUtil.getDLFileEntry(documentId);
+			//BufferedReader br=null;
+			//br = new BufferedReader(new FileReader(document.getTitle()));
+			//br = new BufferedReader(bew FileReader(document));
 			
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			byte[] buffer = new byte[4096];
@@ -79,8 +89,12 @@ public class FirstLinesPortlet extends MVCPortlet {
 			} else {
 				firstLine = "<Empty file>";
 			}
-			
-			results.add(new FirstLinesResult(document, firstLine));
+			firstLine = document.getTreePath();//Integer.toString(document.getReadCount());
+			//br.close();
+			count = Long.toString(document.getSize());
+
+			results.add(new FirstLinesResult(document, firstLine, count));
+			//results.add(new FirstLinesResult(document, firstLine));
 		}
 		
 		//SessionMessages.add(request, "results", results);
@@ -89,7 +103,9 @@ public class FirstLinesPortlet extends MVCPortlet {
 		for(int i=0; i< results.size();i++) {
 			response.setRenderParameter("result"+i, results.get(i).getLine());
 			response.setRenderParameter("title"+i, results.get(i).getContent().getTitle());
+			response.setRenderParameter("filecounts"+i, results.get(i).getFileCount());
 		}
+		
 		response.setRenderParameter("resultSize", Integer.toString(results.size()));
 		response.setRenderParameter("jspPage", "/html/firstlines/results.jsp");
 	}

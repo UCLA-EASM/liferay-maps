@@ -4,7 +4,7 @@
 	
 	<portlet>
 		<portlet-name>first-lines</portlet-name>
-		<display-name>First Lines</display-name>
+		<display-name>Test First Lines</display-name>
 		<portlet-class>
 			edu.ucla.macroscope.firstlines.FirstLinesPortlet
 		</portlet-class>
