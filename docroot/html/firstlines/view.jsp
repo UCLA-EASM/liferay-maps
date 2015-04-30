@@ -11,7 +11,7 @@
 <%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %>
 <portlet:defineObjects />
 
-This is the <b>First Lines</b> portlet in View mode.-Test2
+This is the <b>First Lines</b> portlet in View mode.-Testn2
 
 <h1>My Library</h1>
 
@@ -31,8 +31,11 @@ for(int i=0;i<documents.size();i++) {
 
 <portlet:actionURL name="loadFirstLines" var="loadFirstLinesURL">
 </portlet:actionURL>
- 
-<aui:form action="<%= loadFirstLinesURL %>" method="post">
+
+<portlet:actionURL name="tokenize_file" var="wordCloudGeneratorURL">
+</portlet:actionURL>
+
+<aui:form action="<%= wordCloudGeneratorURL %>" method="post">
 	<% for ( int i = 0; i < textDocuments.size(); i++ ) {
 		%>
 	<aui:input type="checkbox"  
