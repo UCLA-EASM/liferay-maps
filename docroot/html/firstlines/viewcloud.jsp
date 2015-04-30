@@ -10,12 +10,13 @@
     pageEncoding="UTF-8"%>
 
 <h2>Results</h2>
+<%String[] words_list = null; %>
 <% 
 int resultSize = Integer.parseInt(renderRequest.getParameter("resultSize"));
 for(int i=0;i<resultSize;i++)  {
 %> 
 	<h4> <%=renderRequest.getParameter("title"+i) %></h4>
-	<p> <%=renderRequest.getParameter("result"+i) %> </p>
+	<p> <%words_list= (String[])renderRequest.getParameterValues("WordArray"+i); %> </p>
 	<p> File Count:<%=renderRequest.getParameter("filecounts"+i) %> </p>
 	<br/>
 <% 
@@ -26,11 +27,13 @@ for(int i=0;i<resultSize;i++)  {
 <script src="<%=request.getContextPath()%>/js/d3.layout.cloud.js"></script>
 <script>
   var fill = d3.scale.category20();
-
+  var colArray = new Array();
+  <% for (int i=0; i<words_list.length; i++) { %>
+  colArray[<%= i %>] = "<%=words_list[i] %>"; 
+  <%//System.out.println(words_list[i]);%>
+  <% } %>
   d3.layout.cloud().size([300, 300])
-      .words([
-        "Hello", "world", "normally", "you", "want", "more", "words",
-        "than", "this"].map(function(d) {
+  .words(colArray.map(function(d) {
         return {text: d, size: 10 + Math.random() * 90};
       }))
       .padding(5)
@@ -42,8 +45,8 @@ for(int i=0;i<resultSize;i++)  {
 
   function draw(words) {
     d3.select("body").append("svg")
-        .attr("width", 300)
-        .attr("height", 300)
+        .attr("width", 500)
+        .attr("height", 500)
       .append("g")
         .attr("transform", "translate(150,150)")
       .selectAll("text")

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -21,9 +22,6 @@ import java.util.regex.Pattern;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
-
-
-
 
 
 
@@ -126,7 +124,8 @@ public class FirstLinesPortlet extends MVCPortlet {
 		HashMap<String,Integer> dict = new HashMap<String,Integer>();
 		ValueComparator bvc =  new ValueComparator(dict);
         TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(bvc);
-
+        GetStopWords stop = new GetStopWords();
+        HashSet h = stop.getStopList();
 		
 		for (Enumeration<String> parameterNames = request.getParameterNames(); parameterNames.hasMoreElements();) {
 			String parameterName = parameterNames.nextElement();
@@ -176,8 +175,9 @@ public class FirstLinesPortlet extends MVCPortlet {
 					count1++;
 					dict.put(word, count1);
 				}
-				else{
+				else if(!(h.contains(word)) && word.matches("[a-zA-z]+") && word.length()>2){
 					dict.put(word, 0);
+					//System.out.println(word);
 				}
 				 //System.out.println();
 			}
@@ -200,7 +200,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		//System.out.println(SessionMessages.get(request, "results"));
 		//System.out.println(results.get(0).getLine());
 		for(int i=0; i< results.size();i++) {
-			response.setRenderParameter("result"+i, results.get(i).getWordArray());
+			response.setRenderParameter("WordArray"+i, results.get(i).getWordArray());
 			response.setRenderParameter("title"+i, results.get(i).getContent().getTitle());
 			response.setRenderParameter("filecounts"+i, results.get(i).getFileCount());
 		}
@@ -209,6 +209,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		response.setRenderParameter("jspPage", "/html/firstlines/viewcloud.jsp");
 	}
 
+	
 }
 class ValueComparator implements Comparator<String> {
 
