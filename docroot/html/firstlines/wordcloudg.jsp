@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
+
+<div id="cloud"></div>
 <script src="<%=request.getContextPath()%>/js/d3.js"></script>
 <script src="<%=request.getContextPath()%>/js/d3.layout.cloud.js"></script>
 <script>
@@ -24,7 +26,7 @@
       .start();
 
   function draw(words) {
-    d3.select("body").append("svg")
+    d3.select("#cloud").append("svg")
         .attr("width", 300)
         .attr("height", 300)
       .append("g")
