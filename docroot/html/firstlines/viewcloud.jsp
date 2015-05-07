@@ -20,12 +20,14 @@ for(int i=0;i<resultSize;i++)  {
 	<p> <%words_list= (String[])renderRequest.getParameterValues("WordArray"+i); %> </p>
 	<p><%System.out.println(words_list[0]); %></p>
 	<p> File Count:<%=renderRequest.getParameter("filecounts"+i) %> </p>
+	<p>Size:<%=words_list[1] %> Second: <%=words_list[2] %></p>
 	<br/>
 	<%freq_list= new int[words_list.length];
 	String temp[] =	(String[])renderRequest.getParameterValues("frequency_count"+i); 
 	int j=0;
 	for(String s:temp){
 		freq_list[j++]=Integer.parseInt(s)*2;
+		System.out.println(freq_list[j-1]);
 	}
 	
 	%>
@@ -35,7 +37,7 @@ for(int i=0;i<resultSize;i++)  {
 <%int k=0; %>
 <script src="<%=request.getContextPath()%>/js/d3.js"></script>
 <script src="<%=request.getContextPath()%>/js/d3.layout.cloud.js"></script>
-<script>
+<script charset="utf-8" >
   var fill = d3.scale.category20();
   var colArray = new Array();
   <% for (int i=0; i<words_list.length; i++) { %>

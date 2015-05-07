@@ -165,22 +165,43 @@ public class FirstLinesPortlet extends MVCPortlet {
 			stream.close();
 			
 			String lines = new String(buffer);
-			
+			//System.out.println("Line: "+lines);
 			//Making the dictionary
 			Pattern p = Pattern.compile("[\\w']+");
 			Matcher m = p.matcher(lines);
+			System.out.println("Matcher starts:");
+			dict.put("Test", 1);
 			while(m.find()){
-				String word = lines.substring(m.start(), m.end());
+				String word = "";
+				word=lines.substring(m.start(), m.end());
+				System.out.println("Splitting"+word);
 				if(dict.containsKey(word)){
 					int count1  = dict.get(word);
 					count1++;
 					dict.put(word, count1);
+					//System.out.println("Inside"+word);
 				}
-				else if(!(h.contains(word)) && word.matches("[a-zA-z]+") && word.length()>2){
+				else if(!(h.contains(word)) && !word.matches("[0-9]+") && word.length()>2){
 					dict.put(word, 0);
 					//System.out.println(word);
 				}
-				 //System.out.println();
+				 //System.out.println("out");
+			}
+			if(dict.size()<3){
+				//dict.remove("Test");
+				char chinese[]=lines.toCharArray();
+				for(char c:chinese){
+					String cword = ""+c;
+					if(!dict.containsKey(cword)&&cword!=" "){
+						dict.put(cword, 1);
+					}
+					else{
+						int count1  = dict.get(cword);
+						count1++;
+						dict.put(cword, count1);
+					}
+				}
+				//String s = new String();
 			}
 			sorted_map.putAll(dict);
 			//System.out.println("results: "+sorted_map);
