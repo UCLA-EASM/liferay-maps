@@ -10,34 +10,44 @@
     pageEncoding="UTF-8"%>
 
 <h2>Results</h2>
-<%String[] words_list = null; %>
+<%String[] words_list = null; 
+int[] freq_list =null;%>
 <% 
 int resultSize = Integer.parseInt(renderRequest.getParameter("resultSize"));
 for(int i=0;i<resultSize;i++)  {
 %> 
 	<h4> <%=renderRequest.getParameter("title"+i) %></h4>
 	<p> <%words_list= (String[])renderRequest.getParameterValues("WordArray"+i); %> </p>
+	<p><%System.out.println(words_list[0]); %></p>
 	<p> File Count:<%=renderRequest.getParameter("filecounts"+i) %> </p>
 	<br/>
+	<%freq_list= new int[words_list.length];
+	String temp[] =	(String[])renderRequest.getParameterValues("frequency_count"+i); 
+	int j=0;
+	for(String s:temp){
+		freq_list[j++]=Integer.parseInt(s)*2;
+	}
+	
+	%>
 <% 
 } 
 %>
-
+<%int k=0; %>
 <script src="<%=request.getContextPath()%>/js/d3.js"></script>
 <script src="<%=request.getContextPath()%>/js/d3.layout.cloud.js"></script>
 <script>
   var fill = d3.scale.category20();
   var colArray = new Array();
   <% for (int i=0; i<words_list.length; i++) { %>
-  colArray[<%= i %>] = "<%=words_list[i] %>"; 
+  colArray[<%= i %>] = "<%=words_list[i]%>"; 
   <%//System.out.println(words_list[i]);%>
   <% } %>
   d3.layout.cloud().size([300, 300])
   .words(colArray.map(function(d) {
-        return {text: d, size: 10 + Math.random() * 90};
+        return {text: d, size: <%=freq_list[k++]%>};
       }))
       .padding(5)
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .rotate(function() { return ~~(Math.random() * 2) * 45; })
       .font("Impact")
       .fontSize(function(d) { return d.size; })
       .on("end", draw)

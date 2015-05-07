@@ -11,6 +11,7 @@ public class WordCloudResult {
 	//private TreeMap<String,Integer> words;
 	private String words[];
 	private String filecount;
+	private String frequency[];
 	
 	/*public FirstLinesResult(DLFileEntry content, String line) {
 		super();
@@ -22,11 +23,13 @@ public class WordCloudResult {
 		super();
 		this.content = content;
 		this.words = new String[tree_words.size()];
+		this.frequency = new String[tree_words.size()];
 		int i=0;
 		for(Entry<String, Integer> entry : tree_words.entrySet()) {
 			  String key = entry.getKey();
 			  Integer value = entry.getValue();
-			  this.words[i++]=new String(key);
+			  this.words[i]=new String(key);
+			  this.frequency[i++]=new String(Integer.toString(value));
 			  //System.out.println(key + " => " + value);
 			}
 		//this.words = words;
@@ -42,6 +45,9 @@ public class WordCloudResult {
 	}
 	public String getFileCount() {
 		return filecount;
+	}
+	public String[] getFreqCount() {
+		return frequency;
 	}
 	
 }

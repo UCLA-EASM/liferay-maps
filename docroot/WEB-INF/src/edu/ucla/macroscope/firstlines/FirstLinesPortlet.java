@@ -90,7 +90,8 @@ public class FirstLinesPortlet extends MVCPortlet {
 				
 				// Assuming all files will be UTF-8. Not safe for production,
 				// and should be tested before a demo
-				String possibleFirstLines = new String(bytes, "UTF-8");				
+				String possibleFirstLines = new String(bytes, "UTF-8");
+				System.out.println("Lines: "+possibleFirstLines);
 				firstLine = possibleFirstLines.split("[\\r\\n]+")[0];
 			} else {
 				firstLine = "<Empty file>";
@@ -202,6 +203,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		for(int i=0; i< results.size();i++) {
 			response.setRenderParameter("WordArray"+i, results.get(i).getWordArray());
 			response.setRenderParameter("title"+i, results.get(i).getContent().getTitle());
+			response.setRenderParameter("frequency_count"+i, results.get(i).getFreqCount());
 			response.setRenderParameter("filecounts"+i, results.get(i).getFileCount());
 		}
 		
