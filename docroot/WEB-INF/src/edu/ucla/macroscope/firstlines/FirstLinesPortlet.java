@@ -125,7 +125,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		HashMap<String,Integer> dict = new HashMap<String,Integer>();
 		ValueComparator bvc =  new ValueComparator(dict);
         TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(bvc);
-        GetStopWords stop = new GetStopWords();
+        GetStopWords stop= new GetStopWords();
         HashSet h = stop.getStopList();
 		
 		for (Enumeration<String> parameterNames = request.getParameterNames(); parameterNames.hasMoreElements();) {
@@ -188,18 +188,23 @@ public class FirstLinesPortlet extends MVCPortlet {
 				 //System.out.println("out");
 			}
 			if(dict.size()<3){
+				GetStopWords stop2= new GetStopWords(0);
+		        HashSet h1 = stop2.getStopList();
 				//dict.remove("Test");
 				char chinese[]=lines.toCharArray();
 				for(char c:chinese){
 					String cword = ""+c;
-					if(!dict.containsKey(cword)&&cword!=" "){
-						dict.put(cword, 1);
+					if(!cword.isEmpty()&&!cword.equals("")&&!cword.equals(" ")&&!h1.contains(cword)){
+						if(!dict.containsKey(cword)){
+							dict.put(cword, 1);
+						}
+						else{
+							int count1  = dict.get(cword);
+							count1++;
+							dict.put(cword, count1);
+						}
 					}
-					else{
-						int count1  = dict.get(cword);
-						count1++;
-						dict.put(cword, count1);
-					}
+						
 				}
 				//String s = new String();
 			}

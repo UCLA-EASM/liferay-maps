@@ -4,7 +4,9 @@
 
 <%-- <%@ taglib prefix="liferay-ui" uri="http://liferay.com/tld/ui" %> --%>
 <portlet:defineObjects />
+<body>
 
+<div id="cloud"></div>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -37,7 +39,7 @@ for(int i=0;i<resultSize;i++)  {
 <%int k=0; %>
 <script src="<%=request.getContextPath()%>/js/d3.js"></script>
 <script src="<%=request.getContextPath()%>/js/d3.layout.cloud.js"></script>
-<script charset="utf-8" >
+<script>
   var fill = d3.scale.category20();
   var colArray = new Array();
   <% for (int i=0; i<words_list.length; i++) { %>
@@ -46,7 +48,7 @@ for(int i=0;i<resultSize;i++)  {
   <% } %>
   d3.layout.cloud().size([300, 300])
   .words(colArray.map(function(d) {
-        return {text: d, size: <%=freq_list[k++]%>};
+        return {text: d, size: 10 + Math.random() * 90};
       }))
       .padding(5)
       .rotate(function() { return ~~(Math.random() * 2) * 45; })
@@ -74,3 +76,5 @@ for(int i=0;i<resultSize;i++)  {
         .text(function(d) { return d.text; });
   }
 </script>
+
+</body>

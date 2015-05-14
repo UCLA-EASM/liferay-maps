@@ -1,5 +1,8 @@
 package edu.ucla.macroscope.firstlines;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashSet;
 
 public class GetStopWords {
@@ -535,12 +538,145 @@ public class GetStopWords {
 	    add("z");
 	    add("zero");
 	  }
+	
+	public GetStopWords(int c){
+		m_Words = new HashSet();
+		 add("的");
+		 add("一");
+		 add("不");
+		 add("在");
+		 add("人");
+		 add("有");
+		 add("是");
+		 add("为");
+		 add("以");
+		 add("于");
+		 add("上");
+		 add("他");
+		 add("而");
+		 add("后");
+		 add("之");
+		 add("来");
+		 add("及");
+		 add("了");
+		 add("因");
+		 add("下");
+		 add("可");
+		 add("到");
+		 add("由");
+		 add("这");
+		 add("与");
+		 add("也");
+		 add("此");
+		 add("但");
+		 add("并");
+		 add("个");
+		 add("其");
+		 add("已");
+		 add("无");
+		 add("小");
+		 add("我");
+		 add("们");
+		 add("起");
+		 add("最");
+		 add("再");
+		 add("今");
+		 add("去");
+		 add("好");
+		 add("只");
+		 add("又");
+		 add("或");
+		 add("很");
+		 add("亦");
+		 add("某");
+		 add("把");
+		 add("那");
+		 add("你");
+		 add("乃");
+		 add("它");
+		 add("吧");
+		 add("被");
+		 add("比");
+		 add("别");
+		 add("趁");
+		 add("当");
+		 add("从");
+		 add("到");
+		 add("得");
+		 add("打");
+		 add("凡");
+		 add("儿");
+		 add("尔");
+		 add("该");
+		 add("各");
+		 add("给");
+		 add("跟");
+		 add("和");
+		 add("何");
+		 add("还");
+		 add("即");
+		 add("几");
+		 add("既");
+		 add("看");
+		 add("据");
+		 add("距");
+		 add("靠");
+		 add("啦");
+		 add("了");
+		 add("另");
+		 add("么");
+		 add("每");
+		 add("们");
+		 add("嘛");
+		 add("拿");
+		 add("哪");
+		 add("那");
+		 add("您");
+		 add("凭");
+		 add("且");
+		 add("却");
+		 add("让");
+		 add("仍");
+		 add("啥");
+		 add("如");
+		 add("若");
+		 add("使");
+		 add("谁");
+		 add("虽");
+		 add("随");
+		 add("同");
+		 add("所");
+		 add("她");
+		 add("哇");
+		 add("嗡");
+		 add("往");
+		 add("哪");
+		 add("些");
+		 add("向");
+		 add("沿");
+		 add("哟");
+		 add("用");
+		 add("于");
+		 add("咱");
+		 add("则");
+		 add("怎");
+		 add("曾");
+		 add("至");
+		 add("致");
+		 add("着");
+		 add("诸");
+		 add("自");
+
+	}
+	
 	public void add(String word) {
 	    if (word.trim().length() > 0)
-	      m_Words.add(word.trim().toLowerCase());
+	      //m_Words.add(word.trim().toLowerCase());
+	    m_Words.add(word);
 	  }
 	public HashSet getStopList(){
 		return m_Words;
 		
 	}
+	
 }
