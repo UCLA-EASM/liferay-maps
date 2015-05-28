@@ -3,14 +3,14 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	
 	<portlet>
-		<portlet-name>first-lines</portlet-name>
+		<portlet-name>maps</portlet-name>
 		<display-name>Test First Lines</display-name>
 		<portlet-class>
-			edu.ucla.macroscope.firstlines.FirstLinesPortlet
+			edu.ucla.macroscope.maps.FirstLinesPortlet
 		</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/html/firstlines/view.jsp</value>
+			<value>/html/maps/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -18,8 +18,8 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>First Lines</title>
-			<short-title>First Lines</short-title>
+			<title>Maps</title>
+			<short-title>Maps</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>

@@ -1,4 +1,4 @@
-package edu.ucla.macroscope.firstlines;
+package edu.ucla.macroscope.maps;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -114,7 +114,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		}
 		
 		response.setRenderParameter("resultSize", Integer.toString(results.size()));
-		response.setRenderParameter("jspPage", "/html/firstlines/results.jsp");
+		response.setRenderParameter("jspPage", "/html/maps/results.jsp");
 	}
 	
 	public void tokenize_file(ActionRequest request, ActionResponse response) 
@@ -234,7 +234,7 @@ public class FirstLinesPortlet extends MVCPortlet {
 		}
 		
 		response.setRenderParameter("resultSize", Integer.toString(results.size()));
-		response.setRenderParameter("jspPage", "/html/firstlines/viewcloud.jsp");
+		response.setRenderParameter("jspPage", "/html/maps/viewcloud.jsp");
 	}
 
 	

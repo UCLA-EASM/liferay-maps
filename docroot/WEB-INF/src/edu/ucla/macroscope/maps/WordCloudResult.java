@@ -1,4 +1,4 @@
-package edu.ucla.macroscope.firstlines;
+package edu.ucla.macroscope.maps;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
