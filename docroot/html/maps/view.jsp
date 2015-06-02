@@ -9,11 +9,14 @@
 }
 </style>
  
-<script type="text/javascript">
+<aui:script>
+var A=new AUI();
 var map;
 var infowindow;
 var geocoder;
-var address = "Nike";
+var address = "UCLA";
+var markers=[];
+var input1;
 function initialize() {
   var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
   geocoder = new google.maps.Geocoder();
@@ -23,11 +26,7 @@ function initialize() {
     mapTypeId : google.maps.MapTypeId.ROADMAP
   });
 
-  var request = {
-    location: pyrmont,
-    radius: 500,
-    types: ['store']
-  };
+  
   //infowindow = new google.maps.InfoWindow();
   //var service = new google.maps.places.PlacesService(map);
   //service.nearbySearch(request, callback);
@@ -68,15 +67,30 @@ geocoder.geocode( { 'address': address}, function(results, status) {
 
 function createMarker(place) {
   var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
+  markers = new google.maps.Marker({
     map: map,
     position: place.geometry.location
   });
 
-  google.maps.event.addListener(marker, 'click', function() {
+  google.maps.event.addListener(markers, 'click', function() {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
+}
+
+function addmark(place){
+	// To add the marker to the map, call setMap();
+	
+  markers=[];
+  input1 = A.one("#<portlet:namespace/>search_loc").get("value");
+  if(input1.length<2){
+	  input1="UCLA";
+  }
+  address=input1;
+  initialize();
+  codeAddress();
+  //markers.push(marker);
+	//marker.setMap(map);
 }
 
 function <portlet:namespace />loadScript() {
@@ -87,11 +101,11 @@ function <portlet:namespace />loadScript() {
 }
 
 window.onload = <portlet:namespace />loadScript;
-</script>
+</aui:script>
  
 <div id="map_canvas"></div>
 
-<aui:input id="search_loc" name="Enter Location:" type="text"></aui:input>
-<aui:button name="submit_f" value="Submit:" onClick="createMarker('CentralPark')"></aui:button>
+<aui:input id="search_loc" name="search_loc:" type="text"></aui:input>
+<aui:button name="submit_f" value="Submit:" onClick="addmark('Diddy Riese')"></aui:button>
 
 
