@@ -1,11 +1,8 @@
 package edu.ucla.macroscope.maps;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.security.InvalidParameterException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,9 +19,6 @@ import java.util.regex.Pattern;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
-
-
-
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -237,21 +231,21 @@ public class FirstLinesPortlet extends MVCPortlet {
 		response.setRenderParameter("jspPage", "/html/maps/viewcloud.jsp");
 	}
 
+	class ValueComparator implements Comparator<String> {
+
+	    Map<String, Integer> base;
+	    public ValueComparator(Map<String, Integer> base) {
+	        this.base = base;
+	    }
+
+	    // Note: this comparator imposes orderings that are inconsistent with equals.    
+	    public int compare(String a, String b) {
+	        if (base.get(a) >= base.get(b)) {
+	            return -1;
+	        } else {
+	            return 1;
+	        } // returning 0 would merge keys
+	    }
+	}
 	
-}
-class ValueComparator implements Comparator<String> {
-
-    Map<String, Integer> base;
-    public ValueComparator(Map<String, Integer> base) {
-        this.base = base;
-    }
-
-    // Note: this comparator imposes orderings that are inconsistent with equals.    
-    public int compare(String a, String b) {
-        if (base.get(a) >= base.get(b)) {
-            return -1;
-        } else {
-            return 1;
-        } // returning 0 would merge keys
-    }
 }

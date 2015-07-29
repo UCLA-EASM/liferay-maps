@@ -4,6 +4,6 @@
 <display>
 	
 	<category name="category.sample">
-		<portlet id="first-lines"></portlet>
+		<portlet id="liferay-maps-portlet"></portlet>
 	</category>
 </display>
